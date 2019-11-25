@@ -26,8 +26,7 @@ import shutil
 
 #id = input('輸入站號:')
 
-def error_test(id):
-    date = datetime.now().strftime("%Y%m")
+def error_test(id,date):
 #date = '20190903'
 #pull the csv from database
 # 
@@ -42,7 +41,7 @@ def error_test(id):
     req = urllib.request.Request(url)
     html = urllib.request.urlopen(req)
     doc = html.read().decode('utf8')
-    print(doc)
+#    print(doc)
     url_list = list(set(re.findall(csv_LINK_PATTERN, doc)))
 # 
     string1 = "'>Download ID" + str(id) + str(date) +" Data</a><br>"
@@ -83,19 +82,22 @@ def error_test(id):
     else:
         print('正常')
 date = datetime.now().strftime("%Y%m")
+
 id = ["4001","4002","4003","4004","4005","4006","4007","4008","4009","4010","4011","4012"]
 i=0
 for i in range(len(id)):
     try:
-        error_test(id[i])
-        print(id[i]+"這站ok")
+        print(id[i]+"此站開始檢測")
+        error_test(id[i],date)
+        print(id[i]+"此站結束檢測")
     except:
-        print(id[i]+'，這站壞了')
+        print(id[i]+"此站超過一個月停止傳輸")
+        print(id[i]+"此站結束檢測")
 # =============================================================================
     try:
-        shutil.rmtree('./xitou_ID'+str(id[i])+'_TIME'+str(date))
+       shutil.rmtree('./xitou_ID'+str(id[i])+'_TIME'+str(date))
     except:
-        print("finish!!")
+       print("finish!!")
 # =============================================================================
 
 
