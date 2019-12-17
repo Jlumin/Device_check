@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 """
 Created on Tue Sep 17 15:18:42 2019
 
@@ -20,6 +20,7 @@ import pandas as pd
 from datetime import datetime
 import numpy as np
 import shutil
+import fileinput
 # =============================================================================
 # print('相關站號及日期輸入請閱讀下載格式說明文件')
 
@@ -66,6 +67,16 @@ def error_test(id,date):
 
     local_csv_pos = './'+file_name+'/'+file_name+'.csv'
 
+#CSV檔前處理
+    with open(local_csv_pos,'r') as f:
+    global data_fir_line
+    data_fir_line=len(f.readline())
+    print(data_fir_line)
+    if data_fir_line < 230:
+        for line in fileinput.input(local_csv_pos, inplace=1):
+            if not fileinput.isfirstline():
+                print(line.replace('\n',''))
+#進入處理檔案部分
     del_id = [0,2,4,6,8]
     csv_data = pd.read_csv(local_csv_pos,sep=", |,, | = |= ",header=None,index_col=False)
     csv_data.drop(del_id,axis=1, inplace=True)
@@ -84,6 +95,7 @@ def error_test(id,date):
 date = datetime.now().strftime("%Y%m")
 
 id = ["4001","4002","4003","4004","4005","4006","4007","4008","4009","4010","4011","4012"]
+#id=['4001']
 i=0
 for i in range(len(id)):
     try:
@@ -94,10 +106,11 @@ for i in range(len(id)):
         print(id[i]+"此站超過一個月停止傳輸")
         print(id[i]+"此站結束檢測")
 # =============================================================================
-    try:
-       shutil.rmtree('./xitou_ID'+str(id[i])+'_TIME'+str(date))
-    except:
-       print("finish!!")
+try:
+    shutil.rmtree('./xitou_ID'+str(id[i])+'_TIME'+str(date))
+except:
+    print("finish!!")
+# # =============================================================================
 # =============================================================================
 
 
