@@ -33,7 +33,7 @@ def error_test(id,date):
 # 
 #for i in range(len(id)):
 
-    url='http://ec2-54-175-179-28.compute-1.amazonaws.com/get_csv_xitou.php?device_id='+str(id)+'&year_month='+str(date)
+    url='www.database.com='+str(id)+'&year_month='+str(date)
 # print(url)
 # 
     r=requests.get(url)
@@ -52,7 +52,7 @@ def error_test(id,date):
 # 
     file_name = get_rul_patten.strip('temp_file/').strip('.csv')
 # 
-    server_path="http://ec2-54-175-179-28.compute-1.amazonaws.com/"+ get_rul_patten
+    server_path="www.database.com/"+ get_rul_patten
 # 
 # # =============================================================================
 # # 創建資料夾及儲存檔案
